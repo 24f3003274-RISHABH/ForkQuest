@@ -1,20 +1,21 @@
-#include<iosstrearn>
+#include<iostream>
+using namespace std;
 
 
 
 struct ListNode{
     int val;
-    ListNode next;
+    ListNode* next;
 
     ListNode(): val(0), next(nullptr) {}
     ListNode(int x): val(x), next(nullptr) {}
-    ListNode(int x, ListNode ptr): val(x), next(ptr) {}
+    ListNode(int x, ListNode* ptr): val(x), next(ptr) {}
 };
 
 
 
 class List{
-    ListNode head = nullptr;
+    ListNode* head = nullptr;
 
 public:
 
@@ -39,9 +40,14 @@ public:
         ListNode* curr = head;
         ListNode* next = head->next;
 
-
-
-
+        while(curr){
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+            if(next) next=next->next;
+            
+        }
+        head=prev;
     }
 
 
@@ -70,12 +76,12 @@ int main(){
     l.insert(4);
     l.insert(5);
 
-    cout << 'Original Linked List ->';
+    cout << "Original Linked List ->";
     l.display();
 
     // reverse the linked list
     l.reverse();
-    cout << 'Reversed Linked List ->';
+    cout << "Reversed Linked List -> ";
     l.display();
 
     return 0;
